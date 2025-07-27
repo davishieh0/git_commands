@@ -24,3 +24,19 @@ git log remote/branch
 
 git merge remote/branch
 - Faz um merge da remota na local, criando um fast-foward limpo
+### Github 
+curl -sS https://webi.sh/gh | sh
+- Instala o github CLI que facilita a autenticação
+
+gh auth login
+- Realizar autenticacao
+
+git push <remote> <branch_local>
+- Envia de uma branch local para uma branch remota
+
+## Fiz cagada
+ver comandos para voltar a branch no #Reset
+
+git commit --amend -m "<message>"
+- Reescreve a mensagem do commit
+
