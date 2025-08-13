@@ -117,6 +117,7 @@ It really is that simple for most solo work. git log, git reset, and some others
 <img width="930" height="436" alt="image" src="https://github.com/user-attachments/assets/179784e0-8831-49d5-9381-cc867c0fa682" />
 
 ### Meus Alias
+```bash
 nano ~/.bashrc       # Bash
 nano ~/.zshrc        # Zsh
 nano ~/.config/fish/config.fish  # Fish
@@ -126,3 +127,4 @@ grh = git  reset --hard
 gs = git switch
 gb = git branch
 gr = git rebase
+``
