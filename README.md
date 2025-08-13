@@ -1,44 +1,110 @@
 # git_commands
 
+### Man Git
+- O manual do git
+
+---
+
+## Trocando de branch
+`git switch`  
+`git switch -c`  
+- Cria uma branch caso não haja  
+
+---
+
+### Ver minhas configs do git
+`cat ~/.gitconfig`
+
+---
+
 ## Reset
-O comando git reset pode ser usado para desfazer o(s) último(s) commit(s) ou quaisquer alterações no índice (alterações em stage, mas não submetidas ao commit) e na árvore de trabalho (alterações não stage e não submetidas ao commit).
+O comando `git reset` pode ser usado para desfazer o(s) últPorque vocimo(s) commit(s) ou quaisquer alterações no índice (alterações em stage, mas não submetidas ao commit) e na árvore de trabalho (alterações não stage e não submetidas ao commit).
 
-git reset --soft COMMITHASH
-- Preserva as alterações num stage area
+`git reset --soft COMMITHASH`  
+- Preserva as alterações na área de stage
 
-git reset --hard COMMITHASH 
-- Descarta todas as mudanças e volta para o o commit
-- Funciona para apagar alterações no stage area, que não foram commitadas.
-- Comando PERIGOSO!
+`git reset --hard COMMITHASH`  
+- Descarta todas as mudanças e volta para o commit  
+- Funciona para apagar alterações na área de stage que não foram commitadas  
+- **Comando PERIGOSO!**
+
+---
 
 ### Remote
-git remote add <name> <uri>
-- Adiciona repositório remoto
+`git remote add <name> <uri>`  
+- Adiciona repositório remoto  
 
-git fetch 
--  Faz o download dos objetos e refs do outro repositório
-- Não temos todos os arquivos
-- 
-git log remote/branch
-- Visualizo os commits da branch remota
+`git fetch`  
+- Faz o download dos objetos e refs do outro repositório  
+- Não traz todos os arquivos para o working directory, apenas atualiza o histórico  
 
-git merge remote/branch
-- Faz um merge da remota na local, criando um fast-foward limpo
+`git log remote/branch`  
+- Visualiza os commits da branch remota  
+
+`git merge remote/branch`  
+- Faz um merge da remota na local, criando um *fast-forward* limpo  
+- **Nota:** na prática, raramente se usa `git merge` puro para atualizar a branch; o mais comum é usar `git rebase` para manter o histórico linear
+
+---
+
 ### Github 
-curl -sS https://webi.sh/gh | sh
-- Instala o github CLI que facilita a autenticação
+`curl -sS https://webi.sh/gh | sh`  
+- Instala o GitHub CLI que facilita a autenticação  
 
-gh auth login
-- Realizar autenticacao
+`gh auth login`  
+- Realiza a autenticação  
 
-git push <remote> <branch_local>
-- Envia de uma branch local para uma branch remota
+`git push <remote> <branch_local>`  
+- Envia de uma branch local para uma branch remota  
+
+---
+
+## Rebase
+`git rebase`  
+- Reaplica seus commits locais por cima de outro branch, criando um histórico linear e sem commits de merge desnecessários  
+- Muito usado no lugar do `git merge` ao atualizar branches
+
+---
+
+## Rebase interativo
+`git rebase -i <base>`  
+- Permite editar o histórico local antes de enviar para o remoto  
+- Possibilidades:
+  - Reordenar commits
+  - Juntar commits (`squash`)
+  - Editar mensagens
+  - Excluir commits  
+- Muito útil para limpar o histórico e deixar os commits organizados
+
+---
+
+## Configurar pull com rebase
+`git config --global pull.rebase true`  
+- Define que todo `git pull` fará rebase ao invés de merge por padrão  
+- Isso evita commits de merge automáticos ao atualizar do remoto e mantém o histórico linear  
+- É muito raro usar `git merge` puro nesse fluxo
+
+---
 
 ## Fiz cagada
-ver comandos para voltar a branch no #Reset
+Ver comandos para voltar a branch no **#Reset**  
 
-git commit --amend -m "<message>"
+`git commit --amend -m "<message>"`  
 - Reescreve a mensagem do commit
+
+---
+
+## Log customizado
+`git log --oneline --decorate --graph --parents -5`  
+- **`--oneline`** → mostra cada commit em uma única linha (hash abreviado + mensagem).  
+- **`--decorate`** → exibe referências associadas ao commit (tags, branches).  
+- **`--graph`** → desenha o grafo ASCII representando a estrutura de commits e merges.  
+- **`--parents`** → mostra o(s) commit(s) pai(s) de cada commit, útil para analisar merges e bifurcações.  
+
+**Exemplo:**  
+```bash
+git log --oneline --decorate --graph --parents
+```
 
 My Solo Workflow
 When I'm working by myself, I usually stick to a single branch, main. I mostly use Git on solo projects to keep a backup remotely and to keep a history of my changes. I only rarely use separate branches.
@@ -48,17 +114,15 @@ git add . (or git add <files> if I only want to add specific files)
 git commit -m "a message describing the changes"
 git push origin main
 It really is that simple for most solo work. git log, git reset, and some others are, of course, useful from time to time, but the above is the core of what I do day-to-day.
+<img width="930" height="436" alt="image" src="https://github.com/user-attachments/assets/179784e0-8831-49d5-9381-cc867c0fa682" />
 
-My Team Workflow
-When you're working with a team, Git gets a bit more involved (and we'll cover more of this in part 2 of this course). Here's what I do:
-
-Update my local main branch with git pull origin main
-Checkout a new branch for the changes I want to make with git switch -c <branchname>
-Make changes to files
-git add .
-git commit -m "a message describing the changes"
-git push origin <branchname> (I push to the new branch name, not main)
-Open a pull request on GitHub to merge my changes into main
-Ask a team member to review my pull request
-Once approved, click the "Merge" button on GitHub to merge my changes into main
-Delete my feature branch, and repeat with a new branch for the next set of changes
+### Meus Alias
+nano ~/.bashrc       # Bash
+nano ~/.zshrc        # Zsh
+nano ~/.config/fish/config.fish  # Fish
+gl = git log --oneline --decorate --graph --parents
+grs = git reset --soft
+grh = git  reset --hard
+gs = git switch
+gb = git branch
+gr = git rebase
