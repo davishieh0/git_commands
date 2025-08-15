@@ -87,6 +87,9 @@ O comando `git reset` pode ser usado para desfazer o(s) últPorque vocimo(s) com
 ---
 
 ## Fiz cagada
+### Trocar nome da branch
+git branch -m <novo-nome>
+
 Ver comandos para voltar a branch no **#Reset**  
 
 `git commit --amend -m "<message>"`  
