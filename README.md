@@ -55,7 +55,9 @@ O comando `git reset` pode ser usado para desfazer o(s) últPorque vocimo(s) com
 - Realiza a autenticação  
 
 `git push <remote> <branch_local>`  
-- Envia de uma branch local para uma branch remota  
+- Envia de uma branch local para uma branch remota
+  
+`gh auth setup-git`
 
 ---
 
